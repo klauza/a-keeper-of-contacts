@@ -39,7 +39,12 @@ const ContactForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    contactContext.addContact(contact); 
+    if(current === null){   // if there is nothing in 'current' state, we want to add a new contact
+      contactContext.addContact(contact); 
+    } else {
+      contactContext.updateContact(contact);    // contact - state of the form
+    }
+    clearAll();
     setContact({    // clearing the form
       name: '',
       email: '',
@@ -48,9 +53,13 @@ const ContactForm = () => {
     })
   }
 
+  const clearAll = () => {
+    contactContext.clearCurrent();
+  }
+
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">add contact</h2>
+      <h2 className="text-primary"> {current ? 'Edit contact' : 'Add contact'} </h2>
       <input type="text" placeholder="name" name="name" value={name} onChange={onChange} />
       <input type="email" placeholder="email" name="email" value={email} onChange={onChange} />
       <input type="text" placeholder="phone" name="phone" value={phone} onChange={onChange} />
@@ -58,8 +67,10 @@ const ContactForm = () => {
       <input type="radio" name="type" value="personal" checked={type === 'personal'} onChange={onChange} />Personal{' '}
       <input type="radio" name="type" value="professional" checked={type === 'professional'} onChange={onChange} />Professional{' '}
       <div>
-        <input type="submit" value="Add Contact" className="btn btn-primary btn-block" />
+        <input type="submit" value={current ? 'Update contact' : 'Add contact'} className="btn btn-primary btn-block" />
       </div>
+
+      {current && <div className="btn btn-light btn-block" onClick={clearAll}>Clear</div>}
     </form>
   )
 }

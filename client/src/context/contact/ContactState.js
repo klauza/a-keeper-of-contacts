@@ -63,7 +63,9 @@ const ContactState = props => { // create initial state
   dispatch({ type: CLEAR_CURRENT }) // payload isn't going to be send, because we are setting everything to null
  }
  // update contact
-
+ const updateContact = (contact) => {    // grabbing the contact to edit
+  dispatch({ type: UPDATE_CONTACT, payload: contact })
+ }
  // filter contacts
  
  // clear filter
@@ -76,7 +78,8 @@ const ContactState = props => { // create initial state
     addContact,      // if we want to access anything through a component we need to add it here
     deleteContact,
     setCurrent,
-    clearCurrent
+    clearCurrent,
+    updateContact
     }}>
     {props.children}
   </ContactContext.Provider>
