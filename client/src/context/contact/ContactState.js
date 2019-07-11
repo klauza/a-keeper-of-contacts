@@ -45,7 +45,10 @@ const ContactState = props => { // create initial state
 
  // ACTIONS
  // add contact
-
+ const addContact = (contact) => {
+  contact.id = uuid.v4(); // generate random ID. v4 is a method. --- Eventually ID will come from a DB.
+  dispatch({ type: ADD_CONTACT, payload: contact })
+}
  // delete contact
 
  // set current contact
@@ -59,7 +62,11 @@ const ContactState = props => { // create initial state
  // clear filter
 
  return (   // returning a provider. Wrapping entire app with this context
-  <ContactContext.Provider value={{ contacts: state.contacts }}>
+  <ContactContext.Provider 
+  value={{ 
+    contacts: state.contacts,
+    addContact      // if we want to access anything through a component we need to add it here
+    }}>
     {props.children}
   </ContactContext.Provider>
  )
