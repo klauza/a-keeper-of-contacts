@@ -43,7 +43,23 @@ export default (state, action) => {
         ...state,
         current: null  // just setting the current back to null
       }
+    
+    case FILTER_CONTACTS:
+      return{
+        ...state,
+        // take text to be filtered
+        filtered: state.contacts.filter(contact => {    // for each contact
+          const regex = new RegExp(`${action.payload}`, 'gi')   // {text to check}, global & insensitive
+          return contact.name.match(regex) || contact.email.match(regex);
+        })
+      }
 
+      case CLEAR_FILTER:
+      return{
+        ...state,
+        filtered: null  
+      }
+      
     default: 
       return state;
 

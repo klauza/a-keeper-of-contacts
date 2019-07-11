@@ -38,8 +38,9 @@ const ContactState = props => { // create initial state
       type: 'professional'
     }
    ],
-   current: null    // whatever contact is clicked and going to be edited, will be put into that piece of state
- };
+   current: null,    // whatever contact is clicked and going to be edited, will be put into that piece of state
+   filtered: null    // array of filtered contacts matched with whatever is written into input
+  };
 
  // pulling out a state and dispatch from reducer by useReducer hook
  const [state, dispatch] = useReducer(contactReducer, initialState); // state - for accessing what's in our state | dispatch - allows to dispatch objects to reducer
@@ -59,27 +60,35 @@ const ContactState = props => { // create initial state
   dispatch({ type: SET_CURRENT, payload: contact })
  }
  // clear current contact
- const clearCurrent = () => {    // grabbing the contact to edit
+ const clearCurrent = () => {    
   dispatch({ type: CLEAR_CURRENT }) // payload isn't going to be send, because we are setting everything to null
  }
  // update contact
- const updateContact = (contact) => {    // grabbing the contact to edit
+ const updateContact = (contact) => {   
   dispatch({ type: UPDATE_CONTACT, payload: contact })
  }
  // filter contacts
- 
+ const filterContacts = (text) => {    
+  dispatch({ type: FILTER_CONTACTS, payload: text })
+ }
  // clear filter
-
+ const clearFilter = () => {    
+  dispatch({ type: CLEAR_FILTER }) 
+ }
+ 
  return (   // returning a provider. Wrapping entire app with this context
   <ContactContext.Provider 
   value={{ 
     contacts: state.contacts,
     current: state.current,
+    filtered: state.filtered,
     addContact,      // if we want to access anything through a component we need to add it here
     deleteContact,
     setCurrent,
     clearCurrent,
-    updateContact
+    updateContact,
+    filterContacts, 
+    clearFilter
     }}>
     {props.children}
   </ContactContext.Provider>
