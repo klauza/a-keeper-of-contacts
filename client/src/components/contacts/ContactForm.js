@@ -1,8 +1,28 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
+
+  const { current } = contactContext;    // destructuring
+
+  // we want to fill the form based on if there is anything in current value
+  // and we want to run it as soon as it's mounted or created [ useEffect - mimics ComponentDidMount ]
+
+  useEffect(() => {
+    if(current !== null){   // if it's not empty, fill the form
+      setContact(current);  // it's a complete contact we have clicked on
+    } else {
+      setContact({    
+        name: '',
+        email: '',
+        phone: '',
+        type: 'personal' 
+      });
+    }
+  }, [contactContext, current]) // we need to add dependencies here
+  // we want useEffect to happen when contactContext or current is changed
+
 
   const [contact, setContact] = useState({
     name: '',
