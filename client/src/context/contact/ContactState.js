@@ -37,7 +37,8 @@ const ContactState = props => { // create initial state
       phone: '111-222-3333',
       type: 'professional'
     }
-   ]
+   ],
+   current: null    // whatever contact is clicked and going to be edited, will be put into that piece of state
  };
 
  // pulling out a state and dispatch from reducer by useReducer hook
@@ -54,9 +55,13 @@ const ContactState = props => { // create initial state
   dispatch({ type: DELETE_CONTACT, payload: id })
  }
  // set current contact
-
+ const setCurrent = (contact) => {    // grabbing the contact to edit
+  dispatch({ type: SET_CURRENT, payload: contact })
+ }
  // clear current contact
-
+ const clearCurrent = () => {    // grabbing the contact to edit
+  dispatch({ type: CLEAR_CURRENT }) // payload isn't going to be send, because we are setting everything to null
+ }
  // update contact
 
  // filter contacts
@@ -67,8 +72,11 @@ const ContactState = props => { // create initial state
   <ContactContext.Provider 
   value={{ 
     contacts: state.contacts,
+    current: state.current,
     addContact,      // if we want to access anything through a component we need to add it here
-    deleteContact
+    deleteContact,
+    setCurrent,
+    clearCurrent
     }}>
     {props.children}
   </ContactContext.Provider>
