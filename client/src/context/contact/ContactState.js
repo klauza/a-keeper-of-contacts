@@ -48,9 +48,11 @@ const ContactState = props => { // create initial state
  const addContact = (contact) => {
   contact.id = uuid.v4(); // generate random ID. v4 is a method. --- Eventually ID will come from a DB.
   dispatch({ type: ADD_CONTACT, payload: contact })
-}
+ }
  // delete contact
-
+ const deleteContact = (id) => {
+  dispatch({ type: DELETE_CONTACT, payload: id })
+ }
  // set current contact
 
  // clear current contact
@@ -65,7 +67,8 @@ const ContactState = props => { // create initial state
   <ContactContext.Provider 
   value={{ 
     contacts: state.contacts,
-    addContact      // if we want to access anything through a component we need to add it here
+    addContact,      // if we want to access anything through a component we need to add it here
+    deleteContact
     }}>
     {props.children}
   </ContactContext.Provider>
