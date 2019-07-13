@@ -1,5 +1,3 @@
-import { STATES } from "mongoose";
-
 import { SET_ALERT, REMOVE_ALERT } from '../types';
 
 export default (state, action) => {
@@ -9,9 +7,9 @@ export default (state, action) => {
       return[ ...state, action.payload];    // [...any other alerts, alert that got sent]
     
     case REMOVE_ALERT:
-      return state.filter(alert => alert.id !== action.payload) // filtering out the unwanted alert by id
+      return state.filter(alert => alert.id !== action.payload); // filtering out the unwanted alert by id
     
-      default:
+    default:
       return state;
   }
 }
