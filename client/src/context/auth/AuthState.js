@@ -32,7 +32,7 @@ const AuthState = props => { // create initial state
   const register = async (formData) => {
     // it's a POST request, so we need a Content-type
     const config = {
-      headers = {
+      headers: {
         'Content-type': 'application/json'
       }
     }
@@ -50,7 +50,7 @@ const AuthState = props => { // create initial state
 
     } catch (err){
       dispatch({    
-        type: FAIL,
+        type: REGISTER_FAIL,
         payload: err.response.data.msg    // msg --> error message from backend 
       })
     }
@@ -71,6 +71,10 @@ const AuthState = props => { // create initial state
     user: state.user,
     error: state.error,
     register
+    //loadUser,
+    //login,
+    //logout,
+    //clearErrors
 
   }}>
     {props.children}

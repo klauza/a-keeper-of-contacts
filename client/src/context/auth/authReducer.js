@@ -22,7 +22,7 @@ export default (state, action) => {
         loading: false
       }
 
-    case REGISTER_SUCCESS:
+    case REGISTER_FAIL:
       localStorage.removeItem('token');
 
       return{   // basically we reset everything
