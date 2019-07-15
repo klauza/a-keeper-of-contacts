@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -8,8 +8,14 @@ const Register = () => {
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;  // pulling out setAlert from the context
+  const { register, error, clearErrors } = authContext;  // get data from state
 
-  const { register } = authContext;
+  useEffect(() => {
+    if(error === 'User already exists'){
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+  }, [error]);  // we want to run the error when the error is added changes -> is added to state
  
   // state
   const [user, setUser] = useState({

@@ -33,6 +33,13 @@ export default (state, action) => {
         user: null,
         error: action.payload   // it receives data error from AuthState [ payload: err.response.data.msg ]  
       }
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null
+      }
+      
     default:
       return state
   }

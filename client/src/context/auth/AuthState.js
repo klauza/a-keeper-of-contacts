@@ -56,30 +56,33 @@ const AuthState = props => { // create initial state
     }
   }
 
- // Login user
+  // Login user
+  const login = () => { console.log('login'); }
 
- // Logout - destroy the token and clear everything up
+  // Logout - destroy the token and clear everything up
+  const logout = () => { console.log('logout'); }
 
- // Clear errors 
+  // Clear errors 
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS })  // dispatch to reducer
  
- return (   // wrapping the app with this provider
-  <AuthContext.Provider 
-  value={{ 
-    token: state.token,
-    isAuthenticated: state.isAuthenticated,
-    loading: state.loading,
-    user: state.user,
-    error: state.error,
-    register
-    //loadUser,
-    //login,
-    //logout,
-    //clearErrors
+  return (   // wrapping the app with this provider
+    <AuthContext.Provider 
+    value={{ 
+      token: state.token,
+      isAuthenticated: state.isAuthenticated,
+      loading: state.loading,
+      user: state.user,
+      error: state.error,
+      register,
+      //loadUser,
+      login,
+      logout,
+      clearErrors
 
-  }}>
-    {props.children}
-  </AuthContext.Provider>
- )
+    }}>
+      {props.children}
+    </AuthContext.Provider>
+  )
 };
 
 export default AuthState;
