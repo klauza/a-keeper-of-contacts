@@ -29,11 +29,11 @@ const AuthState = props => { // create initial state
  // Load user
 
  // Register user
-  const register = async (formData) => {
+  const register = async formData => {
     // it's a POST request, so we need a Content-type
     const config = {
       headers: {
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
       }
     }
 
