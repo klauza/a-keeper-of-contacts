@@ -1,8 +1,9 @@
 // this is state file
 import React, { useReducer } from 'react'; // hook to accessing state and dispatching to reducer
-import uuid from 'uuid'; // to generate a random ID before working with backend
+
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
+import axios from 'axios';
 import {
   ADD_CONTACT,
   DELETE_CONTACT,
@@ -10,36 +11,18 @@ import {
   CLEAR_CURRENT,
   UPDATE_CONTACT,
   FILTER_CONTACTS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  CONTACT_ERROR
 } from '../types';
 
 const ContactState = props => { // create initial state
  const initialState = {
-   contacts: [  // hardcoded contacts for now
-    {
-      id: 1,
-      name: 'Marius Gonciarz',
-      email: 'gonma@gmail.com',
-      phone: '222-345-5432',
-      type: 'personal'
-    },
-    {
-      id: 2,
-      name: 'John Snow',
-      email: 'snow@gmail.com',
-      phone: '553-115-5433',
-      type: 'personal'
-    },
-    {
-      id: 3,
-      name: 'Harry Pitter',
-      email: 'pitter@gmail.com',
-      phone: '111-222-3333',
-      type: 'professional'
-    }
+   contacts: [ 
+    
    ],
    current: null,    // whatever contact is clicked and going to be edited, will be put into that piece of state
-   filtered: null    // array of filtered contacts matched with whatever is written into input
+   filtered: null,    // array of filtered contacts matched with whatever is written into input
+   error: null
   };
 
  // pulling out a state and dispatch from reducer by useReducer hook
@@ -47,9 +30,21 @@ const ContactState = props => { // create initial state
 
  // ACTIONS
  // add contact
- const addContact = (contact) => {
-  contact.id = uuid.v4(); // generate random ID. v4 is a method. --- Eventually ID will come from a DB.
-  dispatch({ type: ADD_CONTACT, payload: contact })
+ const addContact = async (contact) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  try{
+    const res = await axios.post('/api/contacts', contact, config); // send a contact and a config(header)
+    
+    dispatch({ type: ADD_CONTACT, payload: res.data });
+
+  } catch(err){
+    dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+  }
  }
  // delete contact
  const deleteContact = (id) => {
@@ -82,6 +77,7 @@ const ContactState = props => { // create initial state
     contacts: state.contacts,
     current: state.current,
     filtered: state.filtered,
+    error: state.error,
     addContact,      // if we want to access anything through a component we need to add it here
     deleteContact,
     setCurrent,
