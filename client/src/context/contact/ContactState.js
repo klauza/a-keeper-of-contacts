@@ -19,9 +19,7 @@ import {
 
 const ContactState = props => { // create initial state
  const initialState = {
-   contacts: [ 
-    
-   ],
+   contacts: null,
    current: null,    // whatever contact is clicked and going to be edited, will be put into that piece of state
    filtered: null,    // array of filtered contacts matched with whatever is written into input
    error: null

@@ -17,7 +17,7 @@ const Contacts = () => {
     //eslint-disable-next-line
   }, []); 
 
-  if(contacts.length === 0){
+  if(contacts !== null && contacts.length === 0 && !loading){
     return <h4>Please add a contact</h4>
   }
 
@@ -34,7 +34,7 @@ const Contacts = () => {
         ) 
 
         : 
-        
+
         <Spinner /> 
       }
 
