@@ -24,7 +24,7 @@ export default (state, action) => {
     case ADD_CONTACT:
       return {
         ...state,     // current, original state
-        contacts: [...state.contacts, action.payload],   //adding the contact to existing contacts
+        contacts: [action.payload, ...state.contacts],   //adding the contact to existing contacts - will be first from top, and then the rest
         loading: false
       };
 
@@ -40,7 +40,7 @@ export default (state, action) => {
     case DELETE_CONTACT:
       return{
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload), // filter out the contact we want to delete from the UI // display all contacts beside the one with ID of the contact we selected
+        contacts: state.contacts.filter(contact => contact._id !== action.payload), // filter out the contact we want to delete from the UI // display all contacts beside the one with ID of the contact we selected
         // it looks at contact.id and it's going to return any contact that are not the current ID. So our specific chosen contact will go away.
         loading: false
       };
