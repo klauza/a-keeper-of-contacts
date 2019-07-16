@@ -27,6 +27,17 @@ const AuthState = props => { // create initial state
 
  // ACTIONS
  // Load user
+  const loadUser = async () => {
+  // load token into global headers
+
+    try{
+      const res = await  axios.get('/api/auth');  // this is a route that check the token and see if a user is valid
+
+      dispatch({ type: USER_LOADED, payload: res.data});
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
  // Register user
   const register = async formData => {
@@ -74,7 +85,7 @@ const AuthState = props => { // create initial state
       user: state.user,
       error: state.error,
       register,
-      //loadUser,
+      loadUser,
       login,
       logout,
       clearErrors
