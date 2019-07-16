@@ -71,7 +71,24 @@ const ContactState = props => { // create initial state
     } catch(err){
       dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
     }
-    
+  }
+
+   // update contact
+  const updateContact = async (contact) => {   
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try{
+        const res = await axios.put(`/api/contacts/${contact._id}`, contact, config); // send a contact and a config(header)
+        
+        dispatch({ type: UPDATE_CONTACT, payload: res.data })
+
+    } catch(err){
+      dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+    }
   }
 
  // clear contacts
@@ -83,18 +100,17 @@ const ContactState = props => { // create initial state
  const setCurrent = (contact) => {    // grabbing the contact to edit
   dispatch({ type: SET_CURRENT, payload: contact })
  }
+
  // clear current contact
  const clearCurrent = () => {    
   dispatch({ type: CLEAR_CURRENT }) // payload isn't going to be send, because we are setting everything to null
  }
- // update contact
- const updateContact = (contact) => {   
-  dispatch({ type: UPDATE_CONTACT, payload: contact })
- }
+
  // filter contacts
  const filterContacts = (text) => {    
   dispatch({ type: FILTER_CONTACTS, payload: text })
  }
+
  // clear filter
  const clearFilter = () => {    
   dispatch({ type: CLEAR_FILTER }) 
