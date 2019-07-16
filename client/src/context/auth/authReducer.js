@@ -19,7 +19,8 @@ export default (state, action) => {
         user: action.payload 
       } 
     case REGISTER_SUCCESS:
-      // put token that we get back from database int olocalstorage
+    case LOGIN_SUCCESS:
+      // GET TOKEN, put token that we get back from database into localstorage, put everything into the state nad log-in
       localStorage.setItem('token', action.payload.token);
 
       return{
@@ -31,6 +32,7 @@ export default (state, action) => {
 
     case REGISTER_FAIL:
     case AUTH_ERROR:
+    case LOGIN_FAIL:
       localStorage.removeItem('token');
 
       return{   // basically we reset everything

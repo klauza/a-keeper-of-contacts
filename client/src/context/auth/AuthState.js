@@ -62,7 +62,7 @@ const AuthState = props => { // create initial state
       })
 
       loadUser();   // load the user if register success
-      
+
       // so we make a validation in backend
       // we check if such user already exists
 
@@ -75,7 +75,30 @@ const AuthState = props => { // create initial state
   }
 
   // Login user
-  const login = () => { console.log('login'); }
+  const login = async formData => {
+    // it's a POST request, so we need a Content-type
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try{
+      const res = await axios.post('/api/auth', formData, config);  
+      
+      dispatch({    
+        type: LOGIN_SUCCESS,
+        payload: res.data   
+      });
+      loadUser();   
+
+    } catch (err){
+      dispatch({    
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg   
+      })
+    }
+  }
 
   // Logout - destroy the token and clear everything up
   const logout = () => { console.log('logout'); }
