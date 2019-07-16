@@ -1,0 +1,5 @@
+// create own production.json file with database credentials. This is for deployment.
+{
+  "mongoURI": "mongodb+srv:// ... ",
+  "jwtSecret": "secret"
+}

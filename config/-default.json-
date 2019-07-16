@@ -1,4 +1,4 @@
-// create own default.json file with database credentials
+// create own default.json file with database credentials. This is for development.
 {
   "mongoURI": "mongodb+srv:// ... ",
   "jwtSecret": "secret"

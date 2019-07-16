@@ -25,3 +25,4 @@ yarn-error.log*
 
 #database
 /config/default.json
+/config/production.json
