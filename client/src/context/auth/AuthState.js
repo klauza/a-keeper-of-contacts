@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -28,8 +30,11 @@ const AuthState = props => { // create initial state
  // ACTIONS
  // Load user
   const loadUser = async () => {
-  // load token into global headers
-
+    // load token into global headers
+    if(localStorage.token){
+      setAuthToken(localStorage.token);
+    }
+    
     try{
       const res = await  axios.get('/api/auth');  // this is a route that check the token and see if a user is valid
 
@@ -56,6 +61,8 @@ const AuthState = props => { // create initial state
         payload: res.data   // paylod == response. res.data == token
       })
 
+      loadUser();   // load the user if register success
+      
       // so we make a validation in backend
       // we check if such user already exists
 
