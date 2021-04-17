@@ -1,15 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-This project is being made in learning purposes along Udemy lectures.
+Project made for learning purposes.
 
-## Available Scripts
+In this app a user can register/login for an account and create/update/delete its own contacts.
 
-In the project directory, you can run:
+<img src="https://user-images.githubusercontent.com/43997053/115118617-fa1ec580-9f9b-11eb-957c-214dc0017879.PNG" width="500">
 
-### `npm run server` : starts only database server on port 5000
-### `npm run client`:  starts only local server o port 3000
-### `npm run dev` :  starts database server [port: 5000] and app's server [port: 3000]
+## Testing the app
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Use test account to test the application:
 
+| input        | text          |
+| ------------ | ------------- |
+| **mail**     | test@test.com |
+| **password** | test123       |
